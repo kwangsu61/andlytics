@@ -8,7 +8,6 @@ import android.util.Log;
 import com.github.andlyticsproject.db.AndlyticsDb;
 
 import org.acra.ACRA;
-import org.acra.ACRAConfiguration;
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
 import org.acra.sender.HttpSender;
@@ -29,7 +28,7 @@ public class AndlyticsApp extends Application {
 	public void onCreate() {
 		super.onCreate();
 
-		initAcra();
+//		initAcra();
 
 		// open DB here to  force schema and preferences migration
 		// the DB is kept open through the lifecycle ot the app, no need to 
