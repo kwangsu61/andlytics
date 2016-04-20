@@ -87,7 +87,9 @@ public class CommentsListAdapter extends BaseExpandableListAdapter {
 			holder = (ViewHolderChild) convertView.getTag();
 		}
 
-		holder.datetime.setText(formatCommentDateTime(comment.getDate()));
+		if (holder.datetime != null) {
+			holder.datetime.setText(formatCommentDateTime(comment.getDate()));
+		}
 
 		if (holder.language != null) {
 			final TextView commentText = holder.text;
@@ -141,7 +143,7 @@ public class CommentsListAdapter extends BaseExpandableListAdapter {
 			if (!showTranslations && comment.getOriginalTitle() != null) {
 				commentTitle = comment.getOriginalTitle();
 			}
-			
+
 			holder.text.setText(commentText);
 			holder.title.setText(commentTitle);
 
