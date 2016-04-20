@@ -423,12 +423,15 @@ public class JsonParser {
 			comment.setDate(parseDate(jsonComment.getLong("3")));
 			comment.setRating(jsonComment.getInt("4"));
 			String version = jsonComment.optString("7");
+			String versionString = "-";
 			if (version != null && !"".equals(version) && !version.equals("null")) {
-				comment.setAppVersion(version);
+				versionString = version;
 			}
-			else {
-				comment.setAppVersion("—");
+			String versionCode = jsonComment.optString("6");
+			if (versionCode != null && !"".equals(versionCode) && !versionCode.equals("null")) {
+				versionString += "(" + versionCode + ")";
 			}
+			comment.setAppVersion(versionString);
 
 			JSONObject jsonCommentReview = jsonComment.optJSONObject("5");
 			String commentLang = jsonCommentReview.getString("1");
@@ -506,6 +509,12 @@ public class JsonParser {
 				String extraInfo = jsonDevice.optString("3");
 				if (extraInfo != null) {
 					device += " " + extraInfo;
+				}
+
+				int resolution1 = jsonDevice.optInt("5", 0);
+				int resolution2 = jsonDevice.optInt("6", 0);
+				if (resolution1 != 0 && resolution2 != 0) {
+					device += "(" + resolution1 + "x" + resolution2 + ")";
 				}
 
 				comment.setDevice(device.trim());
