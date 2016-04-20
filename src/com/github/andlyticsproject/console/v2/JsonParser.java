@@ -9,6 +9,7 @@ import com.github.andlyticsproject.model.AppStats;
 import com.github.andlyticsproject.model.Comment;
 import com.github.andlyticsproject.model.RevenueSummary;
 import com.github.andlyticsproject.util.FileUtils;
+import com.google.api.client.util.DateTime;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,6 +18,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -43,6 +45,29 @@ public class JsonParser {
 	private static final boolean DEBUG = false;
 
 	private JsonParser() {
+
+	}
+
+	private static final HashMap<String, String> apiLevelToVersionMap;
+
+	static {
+		apiLevelToVersionMap = new HashMap<String, String>();
+		apiLevelToVersionMap.put("8", "2.2");
+		apiLevelToVersionMap.put("9", "2.3");
+		apiLevelToVersionMap.put("10", "2.3.3");
+		apiLevelToVersionMap.put("11", "3.0");
+		apiLevelToVersionMap.put("12", "3.1");
+		apiLevelToVersionMap.put("13", "3.2");
+		apiLevelToVersionMap.put("14", "4.0");
+		apiLevelToVersionMap.put("15", "4.0.3");
+		apiLevelToVersionMap.put("16", "4.1");
+		apiLevelToVersionMap.put("17", "4.2");
+		apiLevelToVersionMap.put("18", "4.3");
+		apiLevelToVersionMap.put("19", "4.4");
+		apiLevelToVersionMap.put("20", "4.4W");
+		apiLevelToVersionMap.put("21", "5.0");
+		apiLevelToVersionMap.put("22", "5.1");
+		apiLevelToVersionMap.put("23", "6.0");
 
 	}
 
@@ -444,13 +469,42 @@ public class JsonParser {
 				}
 			}
 
-			JSONObject jsonDevice = jsonComment.optJSONObject("16");
+//			JSONObject jsonDevice = jsonComment.optJSONObject("16");
+//			if (jsonDevice != null) {
+//				String device = jsonDevice.optString("3");
+//				JSONArray extraInfo = jsonDevice.optJSONArray("2");
+//				if (extraInfo != null) {
+//					device += " " + extraInfo.optString(0);
+//				}
+//				comment.setDevice(device.trim());
+//			}
+
+			JSONObject jsonDevice = jsonComment.optJSONObject("18");
 			if (jsonDevice != null) {
-				String device = jsonDevice.optString("3");
-				JSONArray extraInfo = jsonDevice.optJSONArray("2");
-				if (extraInfo != null) {
-					device += " " + extraInfo.optString(0);
+				String device = "";
+
+				String extraInfo2 = jsonDevice.optString("7");
+				if (extraInfo2 != null) {
+					String apiLevel;
+					apiLevel = apiLevelToVersionMap.get(extraInfo2);
+					if (apiLevel != null) {
+						device += apiLevel;
+					}
+					else {
+						device += extraInfo2;
+					}
 				}
+
+				JSONArray deviceArray = jsonDevice.getJSONArray("2");
+				if (deviceArray != null) {
+					device += " " + deviceArray.optString(0);
+				}
+
+				String extraInfo = jsonDevice.optString("3");
+				if (extraInfo != null) {
+					device += " " + extraInfo;
+				}
+
 				comment.setDevice(device.trim());
 			}
 
@@ -566,5 +620,4 @@ public class JsonParser {
 	private static Date parseDate(long unixDateCode) {
 		return new Date(unixDateCode);
 	}
-
 }

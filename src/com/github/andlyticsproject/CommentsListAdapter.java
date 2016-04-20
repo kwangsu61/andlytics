@@ -1,13 +1,5 @@
 package com.github.andlyticsproject;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
@@ -28,6 +20,15 @@ import com.github.andlyticsproject.model.Comment;
 import com.github.andlyticsproject.model.CommentGroup;
 import com.github.andlyticsproject.util.Utils;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
 public class CommentsListAdapter extends BaseExpandableListAdapter {
 
 	private static final int TYPE_COMMENT = 0;
@@ -40,6 +41,8 @@ public class CommentsListAdapter extends BaseExpandableListAdapter {
 	private Activity context;
 
 	private DateFormat commentDateFormat = DateFormat.getDateInstance(DateFormat.FULL);
+
+	private DateFormat commentDateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US);
 
 	private boolean canReplyToComments;
 
@@ -69,6 +72,7 @@ public class CommentsListAdapter extends BaseExpandableListAdapter {
 			holder.text = (TextView) convertView.findViewById(R.id.comments_list_item_text);
 			holder.title = (TextView) convertView.findViewById(R.id.comments_list_item_title);
 			holder.user = (TextView) convertView.findViewById(R.id.comments_list_item_username);
+			holder.datetime = (TextView) convertView.findViewById(R.id.comments_list_item_datetime);
 			holder.date = (TextView) convertView.findViewById(R.id.comments_list_item_date);
 			holder.device = (TextView) convertView.findViewById(R.id.comments_list_item_device);
 			holder.version = (TextView) convertView.findViewById(R.id.comments_list_item_version);
@@ -82,6 +86,8 @@ public class CommentsListAdapter extends BaseExpandableListAdapter {
 		} else {
 			holder = (ViewHolderChild) convertView.getTag();
 		}
+
+		holder.datetime.setText(formatCommentDateTime(comment.getDate()));
 
 		if (holder.language != null) {
 			final TextView commentText = holder.text;
@@ -296,6 +302,7 @@ public class CommentsListAdapter extends BaseExpandableListAdapter {
 		TextView text;
 		TextView title;
 		TextView user;
+		TextView datetime;
 		TextView date;
 		LinearLayout deviceVersionContainer;
 		TextView device;
@@ -354,6 +361,10 @@ public class CommentsListAdapter extends BaseExpandableListAdapter {
 
 	private String formatCommentDate(Date date) {
 		return commentDateFormat.format(date);
+	}
+
+	private String formatCommentDateTime(Date date) {
+		return commentDateTimeFormat.format(date);
 	}
 
 	public boolean isCanReplyToComments() {
