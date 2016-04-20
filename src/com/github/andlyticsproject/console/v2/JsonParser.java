@@ -426,6 +426,9 @@ public class JsonParser {
 			if (version != null && !"".equals(version) && !version.equals("null")) {
 				comment.setAppVersion(version);
 			}
+			else {
+				comment.setAppVersion("—");
+			}
 
 			JSONObject jsonCommentReview = jsonComment.optJSONObject("5");
 			String commentLang = jsonCommentReview.getString("1");
