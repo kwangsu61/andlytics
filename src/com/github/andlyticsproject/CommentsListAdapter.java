@@ -124,8 +124,31 @@ public class CommentsListAdapter extends BaseExpandableListAdapter {
 
 				@Override
 				public void onClick(View v) {
-					CommentReplier replier = (CommentReplier) context;
-					replier.showReplyDialog(comment);
+					// remove reply function.
+//					CommentReplier replier = (CommentReplier) context;
+//					replier.showReplyDialog(comment);
+
+					// add comment copy
+					String commentContent = "";
+
+					commentContent += comment.getUser() + " " + formatCommentDateTime(comment.getDate()) + "\n";
+					commentContent += "Rating : " + comment.getRating() + "\n";
+					commentContent += comment.getTitle() + "\n";
+					commentContent += comment.getText() + "\n";
+					commentContent += comment.getAppVersion() + " " + comment.getDevice() + "\n";
+					commentContent += comment.getLanguage();
+
+					Intent sendIntent = new Intent();
+					sendIntent.setAction(Intent.ACTION_SEND);
+					sendIntent.putExtra(Intent.EXTRA_TEXT, commentContent);
+					sendIntent.setType("text/plain");
+					context.startActivity(sendIntent);
+
+//					ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+//					ClipData clip = ClipData.newPlainText("Text Label", commentContent);
+//					clipboard.setPrimaryClip(clip);
+//
+//					Toast.makeText(context, R.string.comment_copy, Toast.LENGTH_SHORT).show();
 				}
 			});
 		}
