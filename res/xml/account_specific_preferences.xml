@@ -3,6 +3,7 @@
 
     <!-- Except for the categories, theses are built up dynamically as they key contains the account name -->
     <PreferenceCategory
+        android:defaultValue="false"
         android:key="prefCatAutoSync"
         android:title="@string/auto_sync" >
     </PreferenceCategory>

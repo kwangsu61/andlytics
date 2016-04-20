@@ -9,7 +9,7 @@
 
     <PreferenceCategory android:title="@string/general_preferences" >
         <ListPreference
-            android:defaultValue="180"
+            android:defaultValue="0"
             android:dialogTitle="@string/auto_sync_period"
             android:entries="@array/autosync_periods"
             android:entryValues="@array/autosync_periods_values"
@@ -40,7 +40,7 @@
             android:title="@string/smooth_values" />
 
         <CheckBoxPreference
-            android:defaultValue="false"
+            android:defaultValue="true"
             android:key="admob.hide_for_unconfigured_apps"
             android:summary="@string/hide_admob_for_unconfigured_apps"
             android:title="@string/admob" />
@@ -64,7 +64,7 @@
             android:title="@string/pref_disable_acra"
             android:summaryOn="@string/pref_acra_enabled"
             android:summaryOff="@string/pref_acra_disabled"
-            android:defaultValue="true"/>
+            android:defaultValue="false"/>
     </PreferenceCategory>
     <PreferenceCategory
         android:key="prefCatAccountSpecific"
