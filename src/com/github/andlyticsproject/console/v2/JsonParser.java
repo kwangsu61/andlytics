@@ -501,10 +501,12 @@ public class JsonParser {
 					}
 				}
 
-				JSONArray deviceArray = jsonDevice.getJSONArray("2");
-				if (deviceArray != null) {
-					device += " " + deviceArray.optString(0);
-				}
+				try {
+					JSONArray deviceArray = jsonDevice.getJSONArray("2");
+					if (deviceArray != null) {
+						device += " " + deviceArray.optString(0);
+					}
+				} catch (Exception e) { }
 
 				String extraInfo = jsonDevice.optString("3");
 				if (extraInfo != null) {
