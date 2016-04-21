@@ -423,10 +423,14 @@ public class JsonParser {
 			comment.setDate(parseDate(jsonComment.getLong("3")));
 			comment.setRating(jsonComment.getInt("4"));
 			String version = jsonComment.optString("7");
-			String versionString = "-";
+			String versionString = "* ";
 			if (version != null && !"".equals(version) && !version.equals("null")) {
-				versionString = version;
+				versionString += version;
 			}
+			else {
+				versionString += "-";
+			}
+
 			String versionCode = jsonComment.optString("6");
 			if (versionCode != null && !"".equals(versionCode) && !versionCode.equals("null")) {
 				versionString += "(" + versionCode + ")";
