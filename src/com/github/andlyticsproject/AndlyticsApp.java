@@ -1,19 +1,12 @@
 package com.github.andlyticsproject;
 
 import android.app.Application;
-import android.content.Context;
 import android.content.pm.ApplicationInfo;
-import android.util.Log;
 
 import com.github.andlyticsproject.db.AndlyticsDb;
 
-import org.acra.ACRA;
-import org.acra.ReportingInteractionMode;
-import org.acra.annotation.ReportsCrashes;
-import org.acra.sender.HttpSender;
-
-@ReportsCrashes(sharedPreferencesMode = Context.MODE_PRIVATE, sharedPreferencesName = Preferences.PREF, mode = ReportingInteractionMode.TOAST,
-resToastText = R.string.crash_toast, sendReportsInDevMode = false)
+//@ReportsCrashes(sharedPreferencesMode = Context.MODE_PRIVATE, sharedPreferencesName = Preferences.PREF, mode = ReportingInteractionMode.TOAST,
+//resToastText = R.string.crash_toast, sendReportsInDevMode = false)
 public class AndlyticsApp extends Application {
 
 	private static final String TAG = AndlyticsApp.class.getSimpleName();
@@ -39,17 +32,17 @@ public class AndlyticsApp extends Application {
 		sInstance = this;
 	}
 
-	private void initAcra() {
-		try {
-			ACRA.init(this);
-			String bugsenseUrl = getResources().getString(R.string.bugsense_url);
-			HttpSender bugSenseSender = new HttpSender(HttpSender.Method.POST,
-					HttpSender.Type.FORM, bugsenseUrl, null);
-			ACRA.getErrorReporter().setReportSender(bugSenseSender);
-		} catch (IllegalStateException e) {
-			Log.w(TAG, "ACRA.init() called more than once?: " + e.getMessage(), e);
-		}
-	}
+//	private void initAcra() {
+//		try {
+//			ACRA.init(this);
+//			String bugsenseUrl = getResources().getString(R.string.bugsense_url);
+//			HttpSender bugSenseSender = new HttpSender(HttpSender.Method.POST,
+//					HttpSender.Type.FORM, bugsenseUrl, null);
+//			ACRA.getErrorReporter().setReportSender(bugSenseSender);
+//		} catch (IllegalStateException e) {
+//			Log.w(TAG, "ACRA.init() called more than once?: " + e.getMessage(), e);
+//		}
+//	}
 
 	public boolean isDebug() {
 		return (getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) > 0;

@@ -30,7 +30,7 @@ import com.github.andlyticsproject.dialog.CrashDialog.CrashDialogBuilder;
 import com.github.andlyticsproject.util.Utils;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 
-import org.acra.ACRA;
+//import org.acra.ACRA;
 
 public class BaseActivity extends Activity {
 
@@ -229,7 +229,7 @@ public class BaseActivity extends Activity {
 	}
 
 	private void sendAracReport(Exception e, boolean userTriggered) {
-		ACRA.getErrorReporter().handleSilentException(e);
+//		ACRA.getErrorReporter().handleSilentException(e);
 	}
 
 	protected void showGoogleErrorDialog(final Exception e) {
