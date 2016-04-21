@@ -1,8 +1,12 @@
 package com.github.andlyticsproject;
 
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.andlyticsproject.model.Comment;
 import com.github.andlyticsproject.model.CommentGroup;
@@ -143,12 +148,43 @@ public class CommentsListAdapter extends BaseExpandableListAdapter {
 					sendIntent.putExtra(Intent.EXTRA_TEXT, commentContent);
 					sendIntent.setType("text/plain");
 					context.startActivity(sendIntent);
+				}
+			});
+		}
 
-//					ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-//					ClipData clip = ClipData.newPlainText("Text Label", commentContent);
-//					clipboard.setPrimaryClip(clip);
-//
-//					Toast.makeText(context, R.string.comment_copy, Toast.LENGTH_SHORT).show();
+		holder.copyIcon = (ImageView) convertView.findViewById(R.id.comments_list_icon_copy);
+		if (holder.copyIcon != null) {
+			holder.copyIcon.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					String commentContent = "";
+
+					commentContent += comment.getAppVersion() + " \t";
+					commentContent += comment.getUser() + " " + formatCommentDateTime(comment.getDate()) + " R:" + comment.getRating() + " \t";
+					commentContent += comment.getDevice() + " \t";
+					commentContent += comment.getLanguage() + " \t";
+					;
+					commentContent += comment.getTitle() + " " + comment.getText();
+					commentContent += "\n";
+
+					ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+
+					ClipData.Item previousClipItem = clipboard.getPrimaryClip().getItemAt(0);
+					String totalCommentContent = previousClipItem.getText() + commentContent;
+
+					ClipData clip = ClipData.newPlainText("Google Review", totalCommentContent);
+					clipboard.setPrimaryClip(clip);
+
+					int commentCount = 0;
+					String[] commentArray = totalCommentContent.split("\n");
+					if (commentArray != null) {
+						commentCount = commentArray.length;
+					}
+
+					Resources res = context.getResources();
+					String copyMessage = String.format(res.getString(R.string.comment_copy), commentCount);
+
+					Toast.makeText(context, copyMessage, Toast.LENGTH_SHORT).show();
 				}
 			});
 		}
@@ -333,6 +369,7 @@ public class CommentsListAdapter extends BaseExpandableListAdapter {
 		TextView device;
 		TextView version;
 		TextView language;
+		ImageView copyIcon;
 		ImageView replyIcon;
 	}
 

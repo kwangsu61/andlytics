@@ -46,6 +46,15 @@
             android:paddingTop="10dp"
             android:src="@drawable/ic_share_black_24dp" />
 
+        <ImageView
+            android:id="@+id/comments_list_icon_copy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/comments_list_icon_reply"
+            android:paddingRight="16dp"
+            android:paddingTop="10dp"
+            android:src="@drawable/ic_copyright_black_24dp" />
+
         <TextView
             android:id="@+id/comments_list_item_title"
             style="@style/MainTableText"

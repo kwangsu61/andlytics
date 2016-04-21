@@ -3,6 +3,8 @@ package com.github.andlyticsproject;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.LoaderManager;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Loader;
 import android.os.Bundle;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
 
 import com.github.andlyticsproject.CommentsFragment.Comments;
 import com.github.andlyticsproject.console.v2.DevConsoleRegistry;
@@ -275,6 +278,10 @@ public class CommentsFragment extends Fragment implements StatsView<Comment>,
 		disableFooter();
 
 		getLoaderManager().restartLoader(REMOTE_LOADER_ID, args, this);
+
+		if (nextCommentIndex == 0) {
+			removeClipData();
+		}
 	}
 
 	private void loadCurrentData() {
@@ -289,8 +296,17 @@ public class CommentsFragment extends Fragment implements StatsView<Comment>,
 		disableFooter();
 
 		getLoaderManager().initLoader(DB_LOADER_ID, args, this);
+
+		removeClipData();
 	}
 
+	private void removeClipData() {
+		ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+		ClipData clip = ClipData.newPlainText("Google Review", "");
+		clipboard.setPrimaryClip(clip);
+
+		Toast.makeText(getActivity(), R.string.remove_clipdata, Toast.LENGTH_SHORT).show();
+	}
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
