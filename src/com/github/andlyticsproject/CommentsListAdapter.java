@@ -131,12 +131,12 @@ public class CommentsListAdapter extends BaseExpandableListAdapter {
 					// add comment copy
 					String commentContent = "";
 
-					commentContent += comment.getUser() + " " + formatCommentDateTime(comment.getDate()) + "\n";
-					commentContent += "Rating : " + comment.getRating() + "\n";
-					commentContent += comment.getTitle() + "\n";
-					commentContent += comment.getText() + "\n";
-					commentContent += comment.getAppVersion() + " " + comment.getDevice() + "\n";
-					commentContent += comment.getLanguage();
+					commentContent += comment.getAppVersion() + " \t";
+					commentContent += comment.getUser() + " " + formatCommentDateTime(comment.getDate()) + " R:" + comment.getRating() + " \t";
+					commentContent += comment.getDevice() + " \t";
+					commentContent += comment.getLanguage() + " \t";;
+					commentContent += comment.getTitle() + " " + comment.getText();
+					commentContent += "\n";
 
 					Intent sendIntent = new Intent();
 					sendIntent.setAction(Intent.ACTION_SEND);

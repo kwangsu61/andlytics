@@ -494,7 +494,7 @@ public class JsonParser {
 					String apiLevel;
 					apiLevel = apiLevelToVersionMap.get(extraInfo2);
 					if (apiLevel != null) {
-						device += apiLevel;
+						device += apiLevel + "(" + extraInfo2 + ")";
 					}
 					else {
 						device += extraInfo2;
