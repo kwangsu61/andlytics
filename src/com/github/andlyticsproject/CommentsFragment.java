@@ -262,7 +262,8 @@ public class CommentsFragment extends Fragment implements StatsView<Comment>,
 
 		if (statsActivity.shouldRemoteUpdateStats()) {
 			loadRemoteData();
-		} else {
+		}
+ 		else {
 			loadCurrentData();
 		}
 	}
@@ -296,8 +297,6 @@ public class CommentsFragment extends Fragment implements StatsView<Comment>,
 		disableFooter();
 
 		getLoaderManager().initLoader(DB_LOADER_ID, args, this);
-
-		removeClipData();
 	}
 
 	private void removeClipData() {
