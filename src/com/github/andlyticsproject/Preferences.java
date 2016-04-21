@@ -221,7 +221,7 @@ public class Preferences {
 	}
 
 	public static boolean getNotificationPerf(Context context, String prefName) {
-		return getSettings(context).getBoolean(prefName, true);
+		return getSettings(context).getBoolean(prefName, false);
 	}
 
 	public static String getNotificationRingtone(Context context) {
