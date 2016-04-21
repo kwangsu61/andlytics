@@ -134,7 +134,7 @@ public class CommentsListAdapter extends BaseExpandableListAdapter {
 //					replier.showReplyDialog(comment);
 
 					// add comment copy
-					String commentContent = "";
+					String commentContent = "* ";
 
 					commentContent += comment.getAppVersion() + " \t";
 					commentContent += comment.getUser() + " " + formatCommentDateTime(comment.getDate()) + " R:" + comment.getRating() + " \t";
@@ -157,13 +157,12 @@ public class CommentsListAdapter extends BaseExpandableListAdapter {
 			holder.copyIcon.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					String commentContent = "";
+					String commentContent = "* ";
 
 					commentContent += comment.getAppVersion() + " \t";
 					commentContent += comment.getUser() + " " + formatCommentDateTime(comment.getDate()) + " R:" + comment.getRating() + " \t";
 					commentContent += comment.getDevice() + " \t";
 					commentContent += comment.getLanguage() + " \t";
-					;
 					commentContent += comment.getTitle() + " " + comment.getText();
 					commentContent += "\n";
 
